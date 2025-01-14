@@ -1,0 +1,33 @@
+{
+  "name": "koa-nunjucks",
+  "version": "1.0.0",
+  "description": "Use nunjucks.js to dynamically load templates",
+  "main": "dist/index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuexihuachen/koa-nunjucks.git"
+  },
+  "keywords": [
+    "nunjucks",
+    "koa",
+    "views"
+  ],
+  "author": "leonwang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuexihuachen/koa-nunjucks/issues"
+  },
+  "homepage": "https://github.com/yuexihuachen/koa-nunjucks#readme",
+  "engines": {
+    "node": ">=20.XX.0"
+  },
+  "dependencies": {
+    "nunjucks": "^3.2.4"
+  }
+}
