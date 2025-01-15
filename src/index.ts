@@ -5,18 +5,15 @@ type Opts = {
     noCache: boolean;
 }
 
-type KoaParams = {
-    searchPaths: string;
-    opt: Opts
-}
-
 class KoaNunjucks {
     protected env;
-    protected searchPaths = ;
+    protected searchPaths;
     protected opts;
-    constructor(params: KoaParams) {
-        this.searchPaths = params.searchPaths;
-        this.opts = params.opt;
+    protected _ctx;
+    constructor(searchPaths, opt, ctx) {
+        this.searchPaths = searchPaths;
+        this.opts = opt;
+        this._ctx = ctx;
         this.initialization()
     }
 
@@ -24,20 +21,26 @@ class KoaNunjucks {
         this.env = new nunjucks.Environment(new nunjucks.FileSystemLoader(this.searchPaths));
     }
 
-    render() {
-
+    async render(name, scope) {
+        this._ctx.body = await new Promise((resolve, reject) => {
+            this.env.render(name, scope, function(err, res) {
+                if (err) {
+                    reject(err)
+                }
+                resolve(res)
+            });
+        })
     }
 }
 
 const koaNunjucks = (searchPaths: string, opt: Opts) => {
-    return async (cxt, next) => {
-        const koaNunjucksInstance = new KoaNunjucks({
-            searchPaths,
-            opt
-        });
-        cxt.render = koaNunjucksInstance.render.bind(koaNunjucks)
+    return async (ctx, next) => {
+        const koaNunjucksInstance = new KoaNunjucks(searchPaths, opt, ctx);
+        ctx.render = koaNunjucksInstance.render.bind(koaNunjucksInstance)
         await next()
     }
 }
 
-export default koaNunjucks;
+export {
+    koaNunjucks
+};
