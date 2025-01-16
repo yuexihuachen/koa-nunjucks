@@ -1,13 +1,19 @@
 {
-  "name": "koa-nunjucks",
-  "version": "1.0.0",
+  "name": "@hellohd/koa-nunjucks",
+  "version": "1.0.1",
   "description": "Use nunjucks.js to dynamically load templates",
   "main": "dist/index.js",
   "directories": {
     "dist": "dist"
   },
+  "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.js"
+      }
+  },
   "files": [
-    "dist"
+    "dist/"
   ],
   "scripts": {
     "test": "node index.ts",
